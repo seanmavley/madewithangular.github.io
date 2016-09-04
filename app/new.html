@@ -1,0 +1,42 @@
+<div class="small-12 medium-8 large-6 large-centered medium-centered columns">
+    <form ng-submit="addNew()" name="addForm" class="margin-top">
+        <div class="row">
+            <fieldset class="fieldset">
+                <legend>Enlist your Firebase-backed site</legend>
+                <div class="small-12 columns">
+                    <label>Name of site
+                        <input type="text" ng-model="formData.name" required autofocus placeholder="eg. Name of site">
+                    </label>
+                </div>
+                <div class="small-12 columns">
+                    <label>Add description
+                        <textarea ng-model="formData.desc" placeholder="Add description here" required>Add description</textarea>
+                    </label>
+                </div>
+                <div class="small-12 columns">
+                    <label>Site URL
+                        <input type="url" ng-model="formData.website" required placeholder="eg. http://blog.khophi.co">
+                    </label>
+                </div>
+                <div class="small-12 columns">
+                    <label>Image e.g http://khophi.co/<strong>image.jpg</strong>
+                        <input type="url" ng-model="formData.thumbnail" aria-describedby="thumbnail" required placeholder="eg. http://blog.khophi.co/image.jpg">
+                    </label>
+                    <p class="help-text" id="thumbnail">Try to keep filesize less than 100kb. Recommended dimension: </p>
+                </div>
+                <div class="small-12 columns">
+                    <label>Category
+                        <select ng-model="formData.category" required>
+                            <option value="health">Health</option>
+                            <option value="education">Education</option>
+                            <option value="webdev">Web Development</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="small-12 columns">
+                    <input type="submit" class="button large expanded" ng-disabled="addForm.$invalid" style="margin-top:13px;" />
+                </div>
+            </fieldset>
+        </div>
+    </form>
+</div>

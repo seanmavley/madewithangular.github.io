@@ -1,0 +1,25 @@
+<div class="small-12 columns">
+    <center>
+        <div class="loader" ng-show="loading">
+            <span>{</span><span>}</span>
+        </div>
+    </center>
+    <div class="row">
+        <div class="small-12 medium-8 medium-centered columns" ng-show="!loading">
+            <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.thumbnail }}" /></a>
+            <hr>
+            <p class="lead">
+                <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: </small>{{ fire.category }} &bull; <small>by</small> {{ fire.createdBy }}
+            </p>
+            <p>
+                
+            </p>
+            <p>
+                Description: {{ fire.desc }}
+            </p>
+            <p>
+                <a class="button large" href="{{ fire.website }}" target="new">Website</a>
+            </p>
+        </div>
+    </div>
+</div>

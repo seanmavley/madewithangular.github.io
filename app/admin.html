@@ -1,0 +1,12 @@
+<div class="small-12 columns">
+    <div class="small-12 medium-6 medium-centered columns">
+        <div ng-show="!list.length">
+            <div class="loader">
+                <span>{</span><span>}</span>
+            </div>
+        </div>
+        <h3>Sites you've added!</h3>
+        <span ng-show="!list.length">You've not added any site.</span>
+        <span ng-repeat="item in list" ng-show="list"><a ui-sref="fire({ fireId: item.$id })" >{{ item.name }}</a> &bull; </span>
+    </div>
+</div>

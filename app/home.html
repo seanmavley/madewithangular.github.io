@@ -1,0 +1,32 @@
+<div class="small-12 columns">
+    <div class="row">
+        <div class="small-12 medium-10 medium-centered columns">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-12 medium-6 medium-centered columns">
+            <div style="margin-top:20px;">
+                <center>
+                    <div class="loader" ng-show="!list">
+                        <span>{</span><span>}</span>
+                    </div>
+                </center>
+            </div>
+        </div>
+        <div class="small-12 columns">
+            <div class="row">
+                <div class="small-12 medium-6 large-4 columns" ng-repeat="item in list">
+                    <div class="card">
+                        <div class="image">
+                            <a ui-sref="fire({ fireId: item.$id })">
+                                <img ng-src="{{ item.thumbnail }}" />
+                                <span class="title">{{ item.name }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="madeWithFirebase">
+
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Made With Firebase</title>
+    <meta name="description" content="Made with Firebase">
+    <meta property="og:description" content="Live applications built with Firebase.">
+    <meta property="og:site_name" content="Made with Firebase">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:description" content="Live applications built with Firebase.">
+    <!-- into assets -->
+    <link rel="shortcut icon " href="./assets/images/favicon.png ">
+    <!-- Disable tap highlight on IE -->
+    <meta name="mobile-web-app-capable " content="yes ">
+    <meta name="application-name " content="CodebySide ">
+    <meta name="theme-color " content="#303F9F ">
+    <!-- Foundation style -->
+    <link rel="stylesheet" href="./vendor/foundation-sites/dist/foundation.min.css">
+    <link rel="stylesheet" href="./assets/styles/mycss.css">
+    <link rel="stylesheet" href="./vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="./assets/styles/foundation-icons/foundation-icons.css" />
+    <link rel="stylesheet" href="./vendor/ngprogress/ngProgress.css">
+</head>
+
+<body>
+    <!-- Header menu -->
+    <ng-include src=" 'templates/menu.html' "></ng-include>
+    <!-- Main body -->
+    <div class="wrapper ">
+        <div class="row ">
+            <ui-view></ui-view>
+        </div>
+        <!-- Footer under wrapper -->
+        <ng-include src=" 'templates/footer.html' "></ng-include>
+    </div>
+    <!-- Footer menu -->
+    <!-- Maybe -->
+    <!-- Angular imports -->
+    <script src="vendor/jquery/dist/jquery.min.js "></script>
+    <script src="vendor/angular/angular.js "></script>
+    <script src="vendor/firebase/firebase.js "></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyBGkFYRktrjZvbrDjNfSXSl8LaGrGojy5o",
+        authDomain: "madewithfirebase.firebaseapp.com",
+        databaseURL: "https://madewithfirebase.firebaseio.com",
+        storageBucket: "madewithfirebase.appspot.com",
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.min.js "></script>
+    <script src="vendor/angularfire/dist/angularfire.min.js "></script>
+    <script src="vendor/angular-ui-router-title/angular-ui-router-title.js "></script>
+    <script src="vendor/ngMeta/dist/ngMeta.min.js "></script>
+    <!-- Setting 'Foundations' -->
+    <script src="vendor/what-input/what-input.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.core.js "></script>
+    <script src="vendor/foundation-sites/dist/foundation.js "></script>
+    <script src="vendor/toastr/toastr.min.js "></script>
+    <!-- ngProgress -->
+    <script src="vendor/ngprogress/build/ngprogress.min.js "></script>
+    <!-- Actual Angular App (AAA)-->
+    <script src="app.js"></script>
+    <script src="controllers/auth.controller.js"></script>
+    <script src="controllers/email.controller.js"></script>
+    <script src="controllers/menu.controller.js"></script>
+    <script src="controllers/home.controller.js"></script>
+    <script src="controllers/admin.controller.js"></script>
+    <script src="controllers/new.controller.js"></script>
+    <script src="controllers/detail.controller.js"></script>
+    <!-- Foundation plugins we need -->
+    <script src="vendor/foundation-sites/dist/plugins/foundation.dropdown.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.reveal.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.util.keyboard.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.util.box.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.util.triggers.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.util.mediaQuery.js "></script>
+    <script src="vendor/foundation-sites/dist/plugins/foundation.util.motion.js "></script>
+</body>
+
+</html>
