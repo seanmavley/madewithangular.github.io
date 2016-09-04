@@ -1,8 +1,8 @@
 angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
 
 .factory("Auth", ['$firebaseAuth', function($firebaseAuth) {
-    return $firebaseAuth();
-  }])
+  return $firebaseAuth();
+}])
 
 .factory("DatabaseRef", function() {
   return firebase.database().ref();
@@ -52,8 +52,22 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
           description: 'Code Description'
         }
       })
+      .state('edit', {
+        url: '/fires/:fireId/edit',
+        templateUrl: 'edit.html',
+        controller: 'EditController',
+        resolve: {
+          currentAuth: ['Auth', function(Auth) {
+            return Auth.$requireSignIn()
+          }]
+        },
+        meta: {
+          title: 'Edit ',
+          description: 'Code Description'
+        }
+      })
       .state('delete', {
-        url: '/delete/:codeId',
+        url: '/fires/:fireId',
         templateUrl: 'codes/delete.html',
         controller: 'DeleteController',
         resolve: {

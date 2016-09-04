@@ -1,7 +1,7 @@
 angular.module('madeWithFirebase')
 
-.controller('AdminController', ['$scope', '$firebaseObject', '$firebaseArray', 'currentAuth', 'Auth', 'DatabaseRef',
-  function($scope, $firebaseObject, $firebaseArray, currentAuth, Auth, DatabaseRef) {
+.controller('AdminController', ['$scope', '$firebaseObject', '$firebaseArray', 'currentAuth', 'DatabaseRef',
+  function($scope, $firebaseObject, $firebaseArray, currentAuth, DatabaseRef) {
     // init empty formData object
     // retrieve codes created by 
     var query = DatabaseRef.child('fire').orderByChild('uid').equalTo(currentAuth.uid);
