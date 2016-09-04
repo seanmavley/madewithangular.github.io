@@ -1,6 +1,12 @@
 {
   "rules": {
-    ".read": "true",
-    ".write": "auth != null"
+    "fire": {
+      ".read": "true",
+      ".write": "auth.uid != null"
+    },
+    "categories": {
+      ".read": "true",
+      ".write": "auth.uid != null && auth.email == 'seanmavley@gmail.com'"
+    }
   }
 }

@@ -27,9 +27,7 @@
                 <div class="small-12 columns">
                     <label>Category
                         <select ng-model="formData.category" required>
-                            <option value="health">Health</option>
-                            <option value="education">Education</option>
-                            <option value="webdev">Web Development</option>
+                            <option ng-repeat="(lang, name) in categories" value="{{ lang }}"> {{ name }} </option>
                         </select>
                     </label>
                 </div>

@@ -31,7 +31,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
         }
       })
       .state('new', {
-        url: '/new',
+        url: '/submit',
         templateUrl: 'new.html',
         controller: 'CreateController',
         resolve: {

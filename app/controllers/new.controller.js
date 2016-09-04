@@ -4,6 +4,14 @@ angular.module('madeWithFirebase')
   function($scope, $state, $firebaseObject, $firebaseArray, DatabaseRef, Auth, currentAuth) {
     var list = $firebaseArray(DatabaseRef.child('fire'));
 
+    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+    categoryObject.$loaded()
+      .then(function(data) {
+        $scope.categories = data;
+      }, function(error) {
+        toastr.error(error.message, 'Couldnt not load categories');
+      });
+
     $scope.addNew = function() {
       if ($scope.addForm.$invalid) {
         toastr.error('Please fill the form, all of it!',
