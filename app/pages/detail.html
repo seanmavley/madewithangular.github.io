@@ -1,4 +1,7 @@
 <div class="small-12 columns">
+    <div class="row">
+        <ng-include src="'templates/includes/ad.html'"></ng-include>
+    </div>
     <center>
         <div class="loader" ng-show="loading">
             <span>{</span><span>}</span>
@@ -9,13 +12,13 @@
             <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.thumbnail }}" /></a>
             <hr>
             <p class="lead">
-                <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: </small>{{ fire.category }} &bull; <small>by</small> {{ fire.createdBy }}
+                <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: </small>{{ fire.category }} &bull; <small>by</small> {{ fire.createdBy }} &bull; <small>{{ fire.createdAt | date: 'medium' }}</small>
             </p>
             <p>
-                
             </p>
             <p>
-                Description: {{ fire.desc }}
+                <strong>Description:</strong><br/> 
+                {{ fire.desc }}
             </p>
             <p>
                 <a class="button large" href="{{ fire.website }}" target="new">Website</a>
