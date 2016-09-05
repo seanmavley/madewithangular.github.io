@@ -13,7 +13,6 @@ angular.module('madeWithFirebase')
     fire.$loaded()
       .then(function(data) {
         $scope.loading = false;
-        console.log(data);
         $scope.fire = data;
       });
   }

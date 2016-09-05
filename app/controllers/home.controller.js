@@ -9,8 +9,8 @@ angular.module('madeWithFirebase')
       return value;
     };
 
-    var categoryArray = $firebaseArray(DatabaseRef.child('categories'));
-    categoryArray.$loaded()
+    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+    categoryObject.$loaded()
       .then(function(data) {
         $scope.categories = data;
       }, function(error) {
@@ -19,6 +19,8 @@ angular.module('madeWithFirebase')
     list.$loaded()
       .then(function(data) {
         $scope.list = data;
+        // TODO: use for loop
+        // to tuck list item under their category
       })
       .catch(function(error) {
         toastr.error(error.message);
