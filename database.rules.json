@@ -2,7 +2,7 @@
   "rules": {
     "fire": {
       ".read": "true",
-      ".write": "auth.uid != null"
+      ".write": "(!data.exists() && newData.child('uid').val() == auth.uid ) || (data.child('uid').val() == newData.child('uid').val())"
     },
     "categories": {
       ".read": "true",

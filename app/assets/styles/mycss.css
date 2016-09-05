@@ -145,6 +145,17 @@
     border-top: 1px solid grey;
 }
 
+.cards {
+    padding: 0.4em;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+
+.cards:hover {
+    box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.2), 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
 .card {
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
@@ -195,6 +206,7 @@
     left: 0;
     padding: 1.3rem;
     color: #fff;
+    text-shadow: 2px 2px 10px black;
 }
 
 .card .image img {

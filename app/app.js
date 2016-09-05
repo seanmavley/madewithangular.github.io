@@ -14,7 +14,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'home.html',
+        templateUrl: 'pages/home.html',
         controller: 'HomeController',
         meta: {
           title: 'Homepage',
@@ -32,7 +32,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
       })
       .state('new', {
         url: '/submit',
-        templateUrl: 'new.html',
+        templateUrl: 'pages/new.html',
         controller: 'CreateController',
         resolve: {
           currentAuth: ['Auth', function(Auth) {
@@ -43,9 +43,18 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
           title: 'Create new'
         }
       })
+      .state('category', {
+        url: '/category/:categoryId',
+        templateUrl: 'pages/category.html',
+        controller: 'CategoryController',
+        meta: {
+          title: 'Category Detail',
+          description: 'Category Detail'
+        }
+      })
       .state('fire', {
         url: '/fires/:fireId',
-        templateUrl: 'detail.html',
+        templateUrl: 'pages/detail.html',
         controller: 'DetailController',
         meta: {
           title: 'Code Detail',
@@ -54,7 +63,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
       })
       .state('edit', {
         url: '/fires/:fireId/edit',
-        templateUrl: 'edit.html',
+        templateUrl: 'pages/edit.html',
         controller: 'EditController',
         resolve: {
           currentAuth: ['Auth', function(Auth) {
@@ -94,7 +103,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
       })
       .state('admin', {
         url: '/admin',
-        templateUrl: 'admin.html',
+        templateUrl: 'pages/admin.html',
         controller: 'AdminController',
         resolve: {
           currentAuth: ['Auth', function(Auth) {

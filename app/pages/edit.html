@@ -1,14 +1,17 @@
+<hr>
 <div class="small-12 medium-6 medium-centered columns">
-    <div style="margin-top:20px;">
-        <center>
-            <div class="loader" ng-show="loading">
+    <center>
+        <div class="loader" ng-show="loading">
+            <div style="margin-top:20px;">
                 <span>{</span><span>}</span>
             </div>
-        </center>
-    </div>
+        </div>
+    </center>
 </div>
-<div class="small-12 medium-6 columns" ng-show="!loading">
-    <form ng-submit="addNew()" name="addForm" class="margin-top">
+<center ng-show="!allowed && !loading">
+    <h2>Not allowed to edit this object</h2></center>
+<div class="small-12 medium-6 columns" ng-show="!loading && allowed">
+    <form ng-submit="addNew()" name="addForm">
         <div class="row">
             <fieldset class="fieldset">
                 <legend>Make changes live</legend>
@@ -48,17 +51,22 @@
     </form>
 </div>
 <div class="small-12 medium-6 columns" ng-show="!loading">
-    <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.thumbnail }}" /></a>
-    <hr>
-    <p class="lead">
-        <a href="{{ formData.website }}" target="new">{{ formData.name }}</a> &bull; <small>Category: </small>{{ formData.category }} &bull; <small>by</small> {{ formData.createdBy }}
-    </p>
-    <p>
-    </p>
-    <p>
-        Description: {{ formData.desc }}
-    </p>
-    <p>
-        <a class="button large" href="{{ formData.website }}" target="new">Website</a>
-    </p>
+    <div class="callout">
+        <p>
+            <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.thumbnail }}" /></a>
+        </p>
+        <hr>
+        <p class="lead">
+            <a href="{{ formData.website }}" target="new">{{ formData.name }}</a> &bull; <small>Category: </small>{{ formData.category }} &bull; <small>by</small> {{ formData.createdBy }}
+        </p>
+        <p>
+        </p>
+        <p>
+            <strong>Description:</strong>
+            <br/> {{ formData.desc }}
+        </p>
+        <p>
+            <a class="button large" href="{{ formData.website }}" target="new">Website</a>
+        </p>
+    </div>
 </div>
