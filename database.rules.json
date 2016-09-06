@@ -2,7 +2,8 @@
   "rules": {
     "fire": {
       ".read": "true",
-      ".write": "(!data.exists() && newData.child('uid').val() == auth.uid ) || (data.child('uid').val() == newData.child('uid').val())"
+      ".write": "(!data.exists() && newData.child('uid').val() == auth.uid ) || (data.child('uid').val() == newData.child('uid').val())",
+      ".indexOn": ["createdAt", "uid"]
     },
     "categories": {
       ".read": "true",
