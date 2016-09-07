@@ -4,9 +4,9 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
   return $firebaseAuth();
 }])
 
-.factory("DatabaseRef", function() {
+.factory("DatabaseRef", ['$firebaseAuth', function($firebaseAuth) {
   return firebase.database().ref();
-})
+}])
 
 .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider) {
