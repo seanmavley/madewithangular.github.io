@@ -29,6 +29,14 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
           description: 'CodeBySide, a simple and fast way to compare code, side by side.' +
             ' Find out what CodeBySide is all about'
         }
+      })      
+      .state('privacy', {
+        url: '/privacy',
+        templateUrl: 'templates/privacy.html',
+        meta: {
+          title: 'Privacy',
+          description: 'Details about your privacy on madeWithFirebase'
+        }
       })
       .state('new', {
         url: '/submit',
