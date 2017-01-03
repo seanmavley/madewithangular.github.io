@@ -14,8 +14,8 @@
             <span>{</span><span>}</span>
         </div>
     </center>
-    <hr>
     <div class="row" ng-show="!loading">
+        <hr>
         <div class="small-12 medium-8 medium-centered columns" style="margin-top:10px;">
             <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.thumbnail }}" /></a>
             <hr>
@@ -30,7 +30,15 @@
             </p>
             <p>
                 <a class="button large" href="{{ fire.website }}" target="new">Website</a>
+                <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })" target="new">edit</a>
+                <a ng-if="firebaseUserUid == fire.uid" class="button alert" ng-click="deleteFire()">delete</a>
             </p>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+// Reinitialize Foundation otherwise Reveal modal won't work
+$(document).ready(function() {
+    $(document).foundation();
+})
+</script>
