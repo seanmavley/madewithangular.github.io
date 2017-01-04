@@ -13,7 +13,7 @@
     <form ng-submit="addNew()" name="addForm">
         <div class="row">
             <fieldset class="fieldset">
-                <legend>Changes are saved automatically.</legend>
+                <legend>Changes are saved automatically. All fields required</legend>
                 <div class="small-12 columns">
                     <label>Name of site
                         <input type="text" ng-model="formData.name" required autofocus placeholder="eg. Name of site">
@@ -49,7 +49,7 @@
 <div class="small-12 medium-6 columns" ng-show="!loading">
     <div class="callout">
         <p>
-            <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.image }}" /> <br/> <img ng-src="{{ formData.thumb }}" style="width:306px;"/></a>
+            <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.image }}" /></a>
         </p>
         <hr>
         <p class="lead">

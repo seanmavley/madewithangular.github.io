@@ -55,6 +55,7 @@ angular.module('madeWithFirebase')
                   })
                   .catch(function(error) {
                     console.log(error);
+                    toastr.error(error);
                   })
             }
         }

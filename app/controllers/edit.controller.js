@@ -10,7 +10,7 @@ angular.module('madeWithFirebase')
         $scope.loading = true;
 
         $scope.doThumbnail = function() {
-            console.log('do Thumbnail engaged.');
+                console.log('do Thumbnail engaged.');
                 resizeService
                     .resizeImage($scope.formData.image, {
                         size: 306,
@@ -18,7 +18,7 @@ angular.module('madeWithFirebase')
                         crossOrigin: 'Anonymous'
                     })
                     .then(function(image) {
-                      $scope.formData.thumbnail = image;
+                        $scope.formData.thumbnail = image;
                     })
             }
             // compare created by to user to edit
@@ -34,6 +34,7 @@ angular.module('madeWithFirebase')
                     /* threesome begins */
                     fire.$bindTo($scope, "formData")
                         .then(function() {
+
                             $scope.loading = false;
                             toastr.info('All changes you make are saved in realtime to Firebase', 'Live saving enabled!');
                         })
