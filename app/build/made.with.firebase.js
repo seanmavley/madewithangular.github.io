@@ -1,4 +1,4 @@
-angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
+angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress', 'images-resizer'])
 
 .factory("Auth", ['$firebaseAuth', function($firebaseAuth) {
   return $firebaseAuth();
@@ -273,9 +273,11 @@ angular.module('madeWithFirebase')
 angular.module('madeWithFirebase')
 
 .controller('DetailController', ['$scope', '$rootScope', '$state',
-    '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth',
+    '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth', '$anchorScroll',
     function($scope, $rootScope, $state, $stateParams,
-        DatabaseRef, $firebaseObject, Auth) {
+        DatabaseRef, $firebaseObject, Auth, $anchorScroll) {
+
+        $anchorScroll();
 
         $scope.loading = true;
 
@@ -339,40 +341,54 @@ angular.module('madeWithFirebase')
 
 angular.module('madeWithFirebase')
 
-.controller('EditController', ['$scope', '$firebaseObject', 'DatabaseRef', '$stateParams', 'currentAuth',
-  function($scope, $firebaseObject, DatabaseRef, $stateParams, currentAuth) {
+.controller('EditController', ['$scope', '$firebaseObject',
+    'DatabaseRef', '$stateParams', 'currentAuth', 'resizeService',
+    function($scope, $firebaseObject,
+        DatabaseRef, $stateParams, currentAuth, resizeService) {
 
-    var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
+        var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
 
-    $scope.loading = true;
+        $scope.loading = true;
 
-    // compare created by to user to edit
-    // enforced in rules
-    fire.$loaded()
-      .then(function(data) {
-        if (data.uid != currentAuth.uid) {
-          toastr.error('Not allowed', 'You are trying to edit a site you did not create.');
-          $scope.allowed = false;
-        } else {
-          $scope.allowed = true;
-          var now = new Date().getTime();
-          /* threesome begins */
-          fire.$bindTo($scope, "formData")
-            .then(function() {
-              $scope.loading = false;
-              toastr.info('All changes you make are saved in realtime to Firebase', 'Live saving enabled!');
+        $scope.doThumbnail = function() {
+            console.log('do Thumbnail engaged.');
+                resizeService
+                    .resizeImage($scope.formData.image, {
+                        size: 306,
+                        sizeScale: 'ko',
+                        crossOrigin: 'Anonymous'
+                    })
+                    .then(function(image) {
+                      $scope.formData.thumbnail = image;
+                    })
+            }
+            // compare created by to user to edit
+            // enforced in rules
+        fire.$loaded()
+            .then(function(data) {
+                if (data.uid != currentAuth.uid) {
+                    toastr.error('Not allowed', 'You are trying to edit a site you did not create.');
+                    $scope.allowed = false;
+                } else {
+                    $scope.allowed = true;
+                    var now = new Date().getTime();
+                    /* threesome begins */
+                    fire.$bindTo($scope, "formData")
+                        .then(function() {
+                            $scope.loading = false;
+                            toastr.info('All changes you make are saved in realtime to Firebase', 'Live saving enabled!');
+                        })
+                }
             })
-        }
-      })
 
-    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
-    categoryObject.$loaded()
-      .then(function(data) {
-        $scope.categories = data;
-      }, function(error) {
-        toastr.error(error.message, 'Couldnt not load categories');
-      });
-  }
+        var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+        categoryObject.$loaded()
+            .then(function(data) {
+                $scope.categories = data;
+            }, function(error) {
+                toastr.error(error.message, 'Couldnt not load categories');
+            });
+    }
 ])
 
 angular.module('madeWithFirebase')
@@ -447,50 +463,65 @@ angular.module('madeWithFirebase')
 
 angular.module('madeWithFirebase')
 
-.controller('CreateController', ['$scope', '$state', '$firebaseObject', '$firebaseArray', 'DatabaseRef', 'Auth', 'currentAuth',
-  function($scope, $state, $firebaseObject, $firebaseArray, DatabaseRef, Auth, currentAuth) {
-    $scope.sending = false; 
+.controller('CreateController', ['$scope', '$state', '$firebaseObject',
+    '$firebaseArray', 'DatabaseRef', 'Auth',
+    'currentAuth', 'resizeService',
+    function($scope, $state, $firebaseObject,
+        $firebaseArray, DatabaseRef, Auth,
+        currentAuth, resizeService) {
 
-    var list = $firebaseArray(DatabaseRef.child('fire'));
+        $scope.sending = false;
 
-    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
-    categoryObject.$loaded()
-      .then(function(data) {
-        $scope.categories = data;
-      }, function(error) {
-        toastr.error(error.message, 'Couldnt not load categories');
-      });
+        var list = $firebaseArray(DatabaseRef.child('fire'));
 
-    $scope.addNew = function() {
-      if ($scope.addForm.$invalid) {
-        toastr.error('Please fill the form, all of it!',
-          'Throw in the best of your coding spices.',
-          'It means a lot!', 'Incomplete form');
+        var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+        categoryObject.$loaded()
+            .then(function(data) {
+                $scope.categories = data;
+            }, function(error) {
+                toastr.error(error.message, 'Couldnt not load categories');
+            });
 
-      } else {
-        toastr.info('Saving begins', 'Sending your submission to the Firebase. Hold on!');
-        $scope.sending = true;
-        var now = new Date().getTime();
+        $scope.addNew = function() {
+            if ($scope.addForm.$invalid) {
+                toastr.error('Please fill the form, all of it!', 'Incomplete form');
 
-        $scope.formData.uid = currentAuth.uid;
-        $scope.formData.createdBy = currentAuth.displayName;
-        $scope.formData.createdAt = now;
+            } else {
+                toastr.info('Saving begins', 'Sending your submission to Firebase. Hold on!');
+                $scope.sending = true;
+                var now = new Date().getTime();
 
-        // console.log($scope.formData);
+                // append more values to formData object
+                $scope.formData.uid = currentAuth.uid;
+                $scope.formData.createdBy = currentAuth.displayName;
+                $scope.formData.createdAt = now;
 
-        list.$add($scope.formData)
-          .then(function(saved) {
-            toastr.clear();
-            // console.log('Saving happened', saved);
-            toastr.success('Saving happened');
-            $state.go('fire', { fireId: saved.key });
-          }, function(error) {
-            // console.log(error.reason, error.message);
-            toastr.error(error.reason, error.message)
-          })
-      }
+                // We handle resizing before submission actually happens.
+                resizeService
+                  .resizeImage($scope.formData.image, {
+                    size:306,
+                    sizeScale: 'ko',
+                    crossOrigin: 'Anonymous'
+                  })
+                  .then(function(image) {
+                    // generate a dataURI thumnail from original image
+                    // and add to formData object
+                    $scope.formData.thumbnail = image;
+                    list.$add($scope.formData)
+                        .then(function(saved) {
+                            toastr.clear();
+                            toastr.success('Saving happened');
+                            $state.go('fire', { fireId: saved.key });
+                        }, function(error) {
+                            toastr.error(error.reason, error.message)
+                        })
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  })
+            }
+        }
     }
-  }
 ])
 
 $(document).foundation();

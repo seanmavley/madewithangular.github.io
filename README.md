@@ -12,8 +12,3 @@ A showcase of web apps built on Firebase
 2. You need to log in before you can make a submission.
 3. Submission automatically goes live, although they're reviewed. 
 
-## Upcoming features
-
-1. Allow deletion using web interface on site
-2. Allow editing using web interface on site
-3. Putting to use categorization

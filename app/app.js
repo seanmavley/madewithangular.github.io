@@ -1,4 +1,4 @@
-angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress'])
+angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress', 'images-resizer'])
 
 .factory("Auth", ['$firebaseAuth', function($firebaseAuth) {
   return $firebaseAuth();

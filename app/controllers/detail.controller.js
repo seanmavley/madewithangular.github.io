@@ -1,9 +1,11 @@
 angular.module('madeWithFirebase')
 
 .controller('DetailController', ['$scope', '$rootScope', '$state',
-    '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth',
+    '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth', '$anchorScroll',
     function($scope, $rootScope, $state, $stateParams,
-        DatabaseRef, $firebaseObject, Auth) {
+        DatabaseRef, $firebaseObject, Auth, $anchorScroll) {
+
+        $anchorScroll();
 
         $scope.loading = true;
 

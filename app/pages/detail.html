@@ -17,7 +17,7 @@
     <div class="row" ng-show="!loading">
         <hr>
         <div class="small-12 medium-8 medium-centered columns" style="margin-top:10px;">
-            <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.thumbnail }}" /></a>
+            <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.image }}" /></a>
             <hr>
             <p class="lead">
                 <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: <a ui-sref="category({ categoryId: fire.category })"></small>{{ fire.category }}</a> &bull; <small>by</small> {{ fire.createdBy }} &bull; <small>{{ fire.createdAt | date: 'medium' }}</small>
@@ -30,7 +30,7 @@
             </p>
             <p>
                 <a class="button large" href="{{ fire.website }}" target="new">Website</a>
-                <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })" target="new">edit</a>
+                <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })">edit</a>
                 <a ng-if="firebaseUserUid == fire.uid" class="button alert" ng-click="deleteFire()">delete</a>
             </p>
         </div>

@@ -1,47 +1,62 @@
 angular.module('madeWithFirebase')
 
-.controller('CreateController', ['$scope', '$state', '$firebaseObject', '$firebaseArray', 'DatabaseRef', 'Auth', 'currentAuth',
-  function($scope, $state, $firebaseObject, $firebaseArray, DatabaseRef, Auth, currentAuth) {
-    $scope.sending = false; 
+.controller('CreateController', ['$scope', '$state', '$firebaseObject',
+    '$firebaseArray', 'DatabaseRef', 'Auth',
+    'currentAuth', 'resizeService',
+    function($scope, $state, $firebaseObject,
+        $firebaseArray, DatabaseRef, Auth,
+        currentAuth, resizeService) {
 
-    var list = $firebaseArray(DatabaseRef.child('fire'));
+        $scope.sending = false;
 
-    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
-    categoryObject.$loaded()
-      .then(function(data) {
-        $scope.categories = data;
-      }, function(error) {
-        toastr.error(error.message, 'Couldnt not load categories');
-      });
+        var list = $firebaseArray(DatabaseRef.child('fire'));
 
-    $scope.addNew = function() {
-      if ($scope.addForm.$invalid) {
-        toastr.error('Please fill the form, all of it!',
-          'Throw in the best of your coding spices.',
-          'It means a lot!', 'Incomplete form');
+        var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+        categoryObject.$loaded()
+            .then(function(data) {
+                $scope.categories = data;
+            }, function(error) {
+                toastr.error(error.message, 'Couldnt not load categories');
+            });
 
-      } else {
-        toastr.info('Saving begins', 'Sending your submission to the Firebase. Hold on!');
-        $scope.sending = true;
-        var now = new Date().getTime();
+        $scope.addNew = function() {
+            if ($scope.addForm.$invalid) {
+                toastr.error('Please fill the form, all of it!', 'Incomplete form');
 
-        $scope.formData.uid = currentAuth.uid;
-        $scope.formData.createdBy = currentAuth.displayName;
-        $scope.formData.createdAt = now;
+            } else {
+                toastr.info('Saving begins', 'Sending your submission to Firebase. Hold on!');
+                $scope.sending = true;
+                var now = new Date().getTime();
 
-        // console.log($scope.formData);
+                // append more values to formData object
+                $scope.formData.uid = currentAuth.uid;
+                $scope.formData.createdBy = currentAuth.displayName;
+                $scope.formData.createdAt = now;
 
-        list.$add($scope.formData)
-          .then(function(saved) {
-            toastr.clear();
-            // console.log('Saving happened', saved);
-            toastr.success('Saving happened');
-            $state.go('fire', { fireId: saved.key });
-          }, function(error) {
-            // console.log(error.reason, error.message);
-            toastr.error(error.reason, error.message)
-          })
-      }
+                // We handle resizing before submission actually happens.
+                resizeService
+                  .resizeImage($scope.formData.image, {
+                    size:306,
+                    sizeScale: 'ko',
+                    crossOrigin: 'Anonymous'
+                  })
+                  .then(function(image) {
+                    // generate a dataURI thumnail from original image
+                    // and add to formData object
+                    $scope.formData.thumbnail = image;
+                    list.$add($scope.formData)
+                        .then(function(saved) {
+                            toastr.clear();
+                            toastr.success('Saving happened');
+                            $state.go('fire', { fireId: saved.key });
+                        }, function(error) {
+                            toastr.error(error.reason, error.message)
+                        })
+                  })
+                  .catch(function(error) {
+                    console.log(error);
+                  })
+            }
+        }
     }
-  }
 ])
