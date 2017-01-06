@@ -10,7 +10,6 @@ angular.module('madeWithFirebase')
         Auth.$signInWithPopup(provider)
           .then(function(firebaseUser) {
             toastr.success('Logged in with Google successfully', 'Success');
-            // updateUserIfEmpty(firebaseUser);
             $state.go('admin');
           })
           .catch(function(error) {

@@ -5,6 +5,7 @@ angular.module('madeWithFirebase')
       var query = DatabaseRef.child('fire').orderByChild('category').equalTo($stateParams.categoryId);
       var list = $firebaseArray(query);
 
+      // Load categories
       list.$loaded()
         .then(function(data) {
           console.log(data);

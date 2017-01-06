@@ -1,51 +1,51 @@
 <div class="small-12 columns">
-    <div class="row">
-        <div class="small-12 medium-8 medium-centered columns">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Homepage (madewithfirebase.com) -->
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+  <div class="row">
+    <div class="small-12 medium-8 medium-centered columns">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- Homepage (madewithfirebase.com) -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
-    <div class="row">
-        <div class="small-12 medium-6 medium-centered columns">
-            <div style="margin-top:20px;">
-                <center>
-                    <div class="loader" ng-show="!list">
-                        <span>{</span><span>}</span>
-                    </div>
-                </center>
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-6 medium-centered columns">
+      <div style="margin-top:20px;">
+        <center>
+          <div class="loader" ng-show="!list">
+            <span>{</span><span>}</span>
+          </div>
+        </center>
+      </div>
     </div>
-    <div class="row" ng-show="list">
-        <div class="small-12 medium-6 medium-centered columns">
-            <label>Sort by categories...
-                <input list="categories" type="search" placeholder="Start typing a category name or use dropdown" name="search" ng-model="filterQuery" aria-describeby="total" />
-                <datalist id="categories">
-                    <option ng-repeat="(key, value) in categories" value="{{ key }}"> {{ value }} </option>
-                </datalist>
-                <p class="help-text" id="total">You're sorting a total of <span class="badge">{{ list.length }}</span> items</p>
-            </label>
-        </div>
+  </div>
+  <div class="row" ng-show="list">
+    <div class="small-12 medium-6 medium-centered columns">
+      <label>Sort by categories...
+        <input list="categories" type="search" placeholder="Start typing a category name or use dropdown" name="search" ng-model="filterQuery" aria-describeby="total" />
+        <datalist id="categories">
+          <option ng-repeat="(key, value) in categories" value="{{ key }}"> {{ value }} </option>
+        </datalist>
+        <p class="help-text" id="total">You're sorting a total of <span class="badge">{{ list.length }}</span> items</p>
+      </label>
     </div>
-    <div class="row">
-        <div class="small-12 medium-4 large-3 columns end show-for-small-only" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' ">
-            <div class="cards">
-                <a ui-sref="fire({ fireId: fire.$id })">{{ fire.name }}</a> | {{ fire.desc }}
-            </div>
-        </div>
-        <div class="small-12 medium-4 large-3 columns end show-for-medium" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' " style="height:147px; margin-bottom:10px;">
-            <div class="card">
-                <div class="image">
-                    <a ui-sref="fire({ fireId: fire.$id })">
-                        <img ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}" />
-                        <span class="title">{{ fire.name }}</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+  </div>
+  <div class="row">
+    <div class="small-12 medium-4 large-3 columns end show-for-small-only" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' ">
+      <div class="cards">
+        <a ui-sref="fire({ fireId: fire.$id })">{{ fire.name }}</a> | {{ fire.desc }}
+      </div>
     </div>
+    <div class="small-12 medium-4 large-3 columns end show-for-medium" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' " style="height:147px; margin-bottom:10px;">
+      <div class="card">
+        <div class="image">
+          <a ui-sref="fire({ fireId: fire.$id })">
+            <img ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}" />
+            <span class="title">{{ fire.name }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

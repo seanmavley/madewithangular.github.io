@@ -12,3 +12,6 @@ A showcase of web apps built on Firebase
 2. You need to log in before you can make a submission.
 3. Submission automatically goes live, although they're reviewed. 
 
+## Contributing
+
+If you come across any issue, raise it using the 'New Issue' button. 

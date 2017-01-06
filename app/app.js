@@ -29,7 +29,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress', 'imag
           description: 'CodeBySide, a simple and fast way to compare code, side by side.' +
             ' Find out what CodeBySide is all about'
         }
-      })      
+      })
       .state('privacy', {
         url: '/privacy',
         templateUrl: 'templates/privacy.html',

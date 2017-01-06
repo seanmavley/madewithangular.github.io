@@ -1,68 +1,68 @@
 <div class="small-12 medium-6 medium-centered columns">
-    <center>
-        <div class="loader" ng-show="loading">
-            <div style="margin-top:20px;">
-                <span>{</span><span>}</span>
-            </div>
-        </div>
-    </center>
+  <center>
+    <div class="loader" ng-show="loading">
+      <div style="margin-top:20px;">
+        <span>{</span><span>}</span>
+      </div>
+    </div>
+  </center>
 </div>
 <center ng-show="!allowed && !loading">
-    <h2>Not allowed to edit this object</h2></center>
+  <h2>Not allowed to edit this object</h2></center>
 <div class="small-12 medium-6 columns" ng-show="!loading && allowed">
-    <form ng-submit="addNew()" name="addForm">
-        <div class="row">
-            <fieldset class="fieldset">
-                <legend>Changes are saved automatically. All fields required</legend>
-                <div class="small-12 columns">
-                    <label>Name of site
-                        <input type="text" ng-model="formData.name" required autofocus placeholder="eg. Name of site">
-                    </label>
-                </div>
-                <div class="small-12 columns">
-                    <label>Add description
-                        <textarea ng-model="formData.desc" placeholder="Add description here" required>Add description</textarea>
-                    </label>
-                </div>
-                <div class="small-12 columns">
-                    <label>Site URL
-                        <input type="url" ng-model="formData.website" required placeholder="eg. http://blog.khophi.co">
-                    </label>
-                </div>
-                <div class="small-12 columns">
-                    <label>Image e.g Image e.g http://i.imgur.com/Nozq7GV.png
-                        <input type="url" crossOrigin="Anonymous" ng-blur="doThumbnail()" ng-model="formData.image" aria-describedby="image" required placeholder="eg. http://blog.khophi.co/image.jpg">
-                    </label>
-                    <p class="help-text" id="image">Try to keep filesize less than 100kb. Recommended dimension: </p>
-                </div>
-                <div class="small-12 columns">
-                    <label>Category
-                        <select ng-model="formData.category" required>
-                            <option ng-repeat="(lang, name) in categories" value="{{ lang }}"> {{ name }} </option>
-                        </select>
-                    </label>
-                </div>
-            </fieldset>
+  <form ng-submit="addNew()" name="addForm">
+    <div class="row">
+      <fieldset class="fieldset">
+        <legend>Changes are saved automatically. All fields required</legend>
+        <div class="small-12 columns">
+          <label>Name of site
+            <input type="text" ng-model="formData.name" required autofocus placeholder="eg. Name of site">
+          </label>
         </div>
-    </form>
+        <div class="small-12 columns">
+          <label>Add description
+            <textarea ng-model="formData.desc" placeholder="Add description here" rows="4" required>Add description</textarea>
+          </label>
+        </div>
+        <div class="small-12 columns">
+          <label>Site URL
+            <input type="url" ng-model="formData.website" required placeholder="eg. http://blog.khophi.co">
+          </label>
+        </div>
+        <div class="small-12 columns">
+          <label>Image e.g http://i.imgur.com/Nozq7GV.png
+            <input type="url" crossOrigin="Anonymous" ng-blur="doThumbnail()" ng-model="formData.image" aria-describedby="image" required placeholder="eg. http://blog.khophi.co/image.jpg">
+          </label>
+          <p class="help-text" id="image">Try to keep filesize less than 100kb. Recommended dimension: </p>
+        </div>
+        <div class="small-12 columns">
+          <label>Category
+            <select ng-model="formData.category" required>
+              <option ng-repeat="(lang, name) in categories" value="{{ lang }}"> {{ name }} </option>
+            </select>
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </form>
 </div>
 <div class="small-12 medium-6 columns" ng-show="!loading">
-    <div class="callout">
-        <p>
-            <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.image }}" /></a>
-        </p>
-        <hr>
-        <p class="lead">
-            <a href="{{ formData.website }}" target="new">{{ formData.name }}</a> &bull; <small>Category: </small>{{ formData.category }} &bull; <small>by</small> {{ formData.createdBy }}
-        </p>
-        <p>
-        </p>
-        <p>
-            <strong>Description:</strong>
-            <br/> {{ formData.desc }}
-        </p>
-        <p>
-            <a class="button large" href="{{ formData.website }}" target="new">Website</a>
-        </p>
-    </div>
+  <div class="callout">
+    <p>
+      <a href="{{ formData.website }}" target="new"><img ng-src="{{ formData.image }}" /></a>
+    </p>
+    <hr>
+    <p class="lead">
+      <a href="{{ formData.website }}" target="new">{{ formData.name }}</a> &bull; <small>Category: </small>{{ formData.category }} &bull; <small>by</small> {{ formData.createdBy }}
+    </p>
+    <p>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <br/> {{ formData.desc }}
+    </p>
+    <p>
+      <a class="button large" href="{{ formData.website }}" target="new">Website</a>
+    </p>
+  </div>
 </div>

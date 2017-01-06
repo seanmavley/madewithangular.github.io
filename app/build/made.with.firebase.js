@@ -29,7 +29,7 @@ angular.module('madeWithFirebase', ['ui.router', 'firebase', 'ngProgress', 'imag
           description: 'CodeBySide, a simple and fast way to compare code, side by side.' +
             ' Find out what CodeBySide is all about'
         }
-      })      
+      })
       .state('privacy', {
         url: '/privacy',
         templateUrl: 'templates/privacy.html',
@@ -159,7 +159,7 @@ angular.module('madeWithFirebase')
 .controller('AdminController', ['$scope', '$firebaseObject', '$firebaseArray', 'currentAuth', 'DatabaseRef',
   function($scope, $firebaseObject, $firebaseArray, currentAuth, DatabaseRef) {
     // init empty formData object
-    // retrieve codes created by 
+    // retrieve codes created by  user in context
     var query = DatabaseRef.child('fire').orderByChild('uid').equalTo(currentAuth.uid);
     var list = $firebaseArray(query);
 
@@ -227,7 +227,6 @@ angular.module('madeWithFirebase')
         Auth.$signInWithPopup(provider)
           .then(function(firebaseUser) {
             toastr.success('Logged in with Google successfully', 'Success');
-            // updateUserIfEmpty(firebaseUser);
             $state.go('admin');
           })
           .catch(function(error) {
@@ -259,6 +258,7 @@ angular.module('madeWithFirebase')
       var query = DatabaseRef.child('fire').orderByChild('category').equalTo($stateParams.categoryId);
       var list = $firebaseArray(query);
 
+      // Load categories
       list.$loaded()
         .then(function(data) {
           console.log(data);
@@ -273,123 +273,125 @@ angular.module('madeWithFirebase')
 angular.module('madeWithFirebase')
 
 .controller('DetailController', ['$scope', '$rootScope', '$state',
-    '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth', '$anchorScroll',
-    function($scope, $rootScope, $state, $stateParams,
-        DatabaseRef, $firebaseObject, Auth, $anchorScroll) {
+  '$stateParams', 'DatabaseRef', '$firebaseObject', 'Auth', '$anchorScroll',
+  function($scope, $rootScope, $state, $stateParams,
+    DatabaseRef, $firebaseObject, Auth, $anchorScroll) {
 
-        $anchorScroll();
+    $anchorScroll();
 
-        $scope.loading = true;
+    $scope.loading = true;
 
-        var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
+    var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
 
-        // Make the auth available in the scope for checking who
-        // owns a piece.
-        Auth.$onAuthStateChanged(function(firebaseUser) {
-            if (firebaseUser) {
-                console.log("Signed in as:", firebaseUser.uid);
-                $scope.firebaseUserUid = firebaseUser.uid;
-            } else {
-                console.log("Not logged in");
-            }
+    // Make the auth available in the scope for checking who
+    // owns a post.
+    Auth.$onAuthStateChanged(function(firebaseUser) {
+      if (firebaseUser) {
+        // console.log("Signed in as:", firebaseUser.uid);
+        $scope.firebaseUserUid = firebaseUser.uid;
+      } else {
+        console.log("Not logged in");
+      }
+    });
+
+    fire.$loaded()
+      .then(function(data) {
+        $scope.loading = false;
+        $scope.fire = data;
+        if ($scope.firebaseUserUid = $scope.fire.uid) {
+          $scope.allowed = true;
+          console.log($scope.allowed);
+        };
+      });
+
+
+    // Let's handle deletion
+    $scope.deleteFire = function() {
+      swal({
+          title: "Are you sure?",
+          text: "You will not be able to reverse this process",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: "Yes, delete it!",
+          closeOnConfirm: false
+        },
+        function() {
+          console.log('deleting fire');
+          console.log($scope.allowed);
+
+          if ($scope.allowed) {
+            console.log('delete happened');
+            fire.$remove()
+              .then(function(ref) {
+                swal("Deleted!", "Resource deletion is complete.", "success");
+                $state.go('admin');
+                toastr.success('Deletion done!', 'Finished Deletion')
+              });
+
+          } else {
+            toastr.error('You aint doing anything');
+          }
         });
-
-        fire.$loaded()
-            .then(function(data) {
-                $scope.loading = false;
-                $scope.fire = data;
-                if ($scope.firebaseUserUid = $scope.fire.uid) {
-                    $scope.allowed = true;
-                    console.log($scope.allowed);
-                };
-            });
-
-
-        // Let's handle deletion
-        $scope.deleteFire = function() {
-            swal({
-                    title: "Are you sure?",
-                    text: "You will not be able to reverse this process",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Yes, delete it!",
-                    closeOnConfirm: false
-                },
-                function() {
-                    console.log('deleting fire');
-                    console.log($scope.allowed);
-
-                    if ($scope.allowed) {
-                        console.log('delete happened');
-                        fire.$remove()
-                            .then(function(ref) {
-                                swal("Deleted!", "Resource deletion is complete.", "success");
-                                $state.go('admin');
-                                toastr.success('Deletion done!', 'Finished Deletion')
-                            });
-
-                    } else {
-                        toastr.error('You aint doing anything');
-                    }
-                });
-        }
-
     }
+
+  }
 
 ]);
 
 angular.module('madeWithFirebase')
 
 .controller('EditController', ['$scope', '$firebaseObject',
-    'DatabaseRef', '$stateParams', 'currentAuth', 'resizeService',
-    function($scope, $firebaseObject,
-        DatabaseRef, $stateParams, currentAuth, resizeService) {
+  'DatabaseRef', '$stateParams', 'currentAuth', 'resizeService',
+  function($scope, $firebaseObject,
+    DatabaseRef, $stateParams, currentAuth, resizeService) {
 
-        var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
+    var fire = $firebaseObject(DatabaseRef.child('fire').child($stateParams.fireId));
 
-        $scope.loading = true;
+    $scope.loading = true;
 
-        $scope.doThumbnail = function() {
-                console.log('do Thumbnail engaged.');
-                resizeService
-                    .resizeImage($scope.formData.image, {
-                        size: 306,
-                        sizeScale: 'ko',
-                        crossOrigin: 'Anonymous'
-                    })
-                    .then(function(image) {
-                        $scope.formData.thumbnail = image;
-                    })
-            }
-            // compare created by to user to edit
-            // enforced in rules
-        fire.$loaded()
-            .then(function(data) {
-                if (data.uid != currentAuth.uid) {
-                    toastr.error('Not allowed', 'You are trying to edit a site you did not create.');
-                    $scope.allowed = false;
-                } else {
-                    $scope.allowed = true;
-                    var now = new Date().getTime();
-                    /* threesome begins */
-                    fire.$bindTo($scope, "formData")
-                        .then(function() {
-
-                            $scope.loading = false;
-                            toastr.info('All changes you make are saved in realtime to Firebase', 'Live saving enabled!');
-                        })
-                }
+    // generate thumbnail, and 
+    // $bindTo will pick up the model change and reflect in
+    // realtime database
+    $scope.doThumbnail = function() {
+      console.log('do Thumbnail engaged.');
+      resizeService
+        .resizeImage($scope.formData.image, {
+          size: 306,
+          sizeScale: 'ko',
+          crossOrigin: 'Anonymous'
+        })
+        .then(function(image) {
+          $scope.formData.thumbnail = image;
+        })
+    };
+    // compare createdBy to user to edit
+    // enforced in rules
+    fire.$loaded()
+      .then(function(data) {
+        if (data.uid != currentAuth.uid) {
+          toastr.error('Not allowed', 'You are trying to edit a site you did not create.');
+          $scope.allowed = false;
+        } else {
+          $scope.allowed = true;
+          var now = new Date().getTime();
+          /* threesome begins */
+          fire.$bindTo($scope, "formData")
+            .then(function() {
+              $scope.loading = false;
+              toastr.info('All changes you make are saved in realtime to Firebase', 'Live saving enabled!');
             })
+        }
+      })
 
-        var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
-        categoryObject.$loaded()
-            .then(function(data) {
-                $scope.categories = data;
-            }, function(error) {
-                toastr.error(error.message, 'Couldnt not load categories');
-            });
-    }
+    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+    categoryObject.$loaded()
+      .then(function(data) {
+        $scope.categories = data;
+      }, function(error) {
+        toastr.error(error.message, 'Couldnt not load categories');
+      });
+  }
 ])
 
 angular.module('madeWithFirebase')
@@ -465,65 +467,64 @@ angular.module('madeWithFirebase')
 angular.module('madeWithFirebase')
 
 .controller('CreateController', ['$scope', '$state', '$firebaseObject',
-    '$firebaseArray', 'DatabaseRef', 'Auth',
-    'currentAuth', 'resizeService',
-    function($scope, $state, $firebaseObject,
-        $firebaseArray, DatabaseRef, Auth,
-        currentAuth, resizeService) {
+  '$firebaseArray', 'DatabaseRef', 'Auth',
+  'currentAuth', 'resizeService',
+  function($scope, $state, $firebaseObject,
+    $firebaseArray, DatabaseRef, Auth,
+    currentAuth, resizeService) {
 
-        $scope.sending = false;
+    $scope.sending = false;
 
-        var list = $firebaseArray(DatabaseRef.child('fire'));
+    var list = $firebaseArray(DatabaseRef.child('fire'));
 
-        var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
-        categoryObject.$loaded()
-            .then(function(data) {
-                $scope.categories = data;
-            }, function(error) {
-                toastr.error(error.message, 'Couldnt not load categories');
-            });
+    var categoryObject = $firebaseObject(DatabaseRef.child('categories'));
+    categoryObject.$loaded()
+      .then(function(data) {
+        $scope.categories = data;
+      }, function(error) {
+        toastr.error(error.message, 'Couldnt not load categories');
+      });
 
-        $scope.addNew = function() {
-            if ($scope.addForm.$invalid) {
-                toastr.error('Please fill the form, all of it!', 'Incomplete form');
+    $scope.addNew = function() {
+      if ($scope.addForm.$invalid) {
+        toastr.error('Please fill the form, all of it!', 'Incomplete form');
+      } else {
+        toastr.info('Saving begins', 'Sending your submission to Firebase. Hold on!');
+        $scope.sending = true;
+        var now = new Date().getTime();
 
-            } else {
-                toastr.info('Saving begins', 'Sending your submission to Firebase. Hold on!');
-                $scope.sending = true;
-                var now = new Date().getTime();
+        // append more values to formData object
+        $scope.formData.uid = currentAuth.uid;
+        $scope.formData.createdBy = currentAuth.displayName;
+        $scope.formData.createdAt = now;
 
-                // append more values to formData object
-                $scope.formData.uid = currentAuth.uid;
-                $scope.formData.createdBy = currentAuth.displayName;
-                $scope.formData.createdAt = now;
-
-                // We handle resizing before submission actually happens.
-                resizeService
-                  .resizeImage($scope.formData.image, {
-                    size:306,
-                    sizeScale: 'ko',
-                    crossOrigin: 'Anonymous'
-                  })
-                  .then(function(image) {
-                    // generate a dataURI thumnail from original image
-                    // and add to formData object
-                    $scope.formData.thumbnail = image;
-                    list.$add($scope.formData)
-                        .then(function(saved) {
-                            toastr.clear();
-                            toastr.success('Saving happened');
-                            $state.go('fire', { fireId: saved.key });
-                        }, function(error) {
-                            toastr.error(error.reason, error.message)
-                        })
-                  })
-                  .catch(function(error) {
-                    console.log(error);
-                    toastr.error(error);
-                  })
-            }
-        }
+        // We handle resizing before submission actually happens.
+        resizeService
+          .resizeImage($scope.formData.image, {
+            size: 306,
+            sizeScale: 'ko',
+            crossOrigin: 'Anonymous'
+          })
+          .then(function(image) {
+            // generate a dataURI thumnail from original image
+            // and add to formData object
+            $scope.formData.thumbnail = image;
+            list.$add($scope.formData)
+              .then(function(saved) {
+                toastr.clear();
+                toastr.success('Saving happened');
+                $state.go('fire', { fireId: saved.key });
+              }, function(error) {
+                toastr.error(error.reason, error.message)
+              })
+          })
+          .catch(function(error) {
+            console.log(error);
+            toastr.error(error);
+          })
+      }
     }
+  }
 ])
 
 $(document).foundation();

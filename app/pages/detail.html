@@ -1,44 +1,44 @@
 <div class="small-12 columns">
-    <div class="row">
-        <div class="small-12 medium-8 medium-centered columns">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Homepage (madewithfirebase.com) -->
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
-            <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+  <div class="row">
+    <div class="small-12 medium-8 medium-centered columns">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- Homepage (madewithfirebase.com) -->
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
     </div>
-    <center>
-        <div class="loader" ng-show="loading">
-            <span>{</span><span>}</span>
-        </div>
-    </center>
-    <div class="row" ng-show="!loading">
-        <hr>
-        <div class="small-12 medium-8 medium-centered columns" style="margin-top:10px;">
-            <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.image }}" /></a>
-            <hr>
-            <p class="lead">
-                <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: <a ui-sref="category({ categoryId: fire.category })"></small>{{ fire.category }}</a> &bull; <small>by</small> {{ fire.createdBy }} &bull; <small>{{ fire.createdAt | date: 'medium' }}</small>
-            </p>
-            <p>
-            </p>
-            <p>
-                <strong>Description:</strong>
-                <br/> {{ fire.desc }}
-            </p>
-            <p>
-                <a class="button large" href="{{ fire.website }}" target="new">Website</a>
-                <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })">edit</a>
-                <a ng-if="firebaseUserUid == fire.uid" class="button alert" ng-click="deleteFire()">delete</a>
-            </p>
-        </div>
+  </div>
+  <center>
+    <div class="loader" ng-show="loading">
+      <span>{</span><span>}</span>
     </div>
+  </center>
+  <div class="row" ng-show="!loading">
+    <hr>
+    <div class="small-12 medium-8 medium-centered columns" style="margin-top:10px;">
+      <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.image }}" /></a>
+      <hr>
+      <p class="lead">
+        <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: <a ui-sref="category({ categoryId: fire.category })"></small>{{ fire.category }}</a> &bull; <small>by</small> {{ fire.createdBy }} &bull; <small>{{ fire.createdAt | date: 'medium' }}</small>
+      </p>
+      <p>
+      </p>
+      <p>
+        <strong>Description:</strong>
+        <br/> {{ fire.desc }}
+      </p>
+      <p>
+        <a class="button large" href="{{ fire.website }}" target="new">Website</a>
+        <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })">edit</a>
+        <a ng-if="firebaseUserUid == fire.uid" class="button alert" ng-click="deleteFire()">delete</a>
+      </p>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
 // Reinitialize Foundation otherwise Reveal modal won't work
 $(document).ready(function() {
-    $(document).foundation();
+  $(document).foundation();
 })
 </script>
