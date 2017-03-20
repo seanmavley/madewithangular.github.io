@@ -1,29 +1,27 @@
-<div class="small-12 columns">
-  <center>
-    <div class="loader" ng-show="loading">
-      <span>{</span><span>}</span>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 offset-sm-4">
+      <div class="loader" ng-show="loading">
+        <span>{</span><span>}</span>
+      </div>
     </div>
-  </center>
+  </div>
   <div class="row" ng-show="!loading">
-    <hr>
-    <div class="small-12 medium-8 medium-centered columns" style="margin-top:10px;">
-      <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.image }}" /></a>
-      <hr>
-      <p class="lead">
-        <a href="{{ fire.website }}" target="new">{{ fire.name }}</a> &bull; <small>Category: <a ui-sref="category({ categoryId: fire.category })"></small>{{ fire.category }}</a> &bull; <small>by</small> {{ fire.createdBy }} &bull; <small>{{ fire.createdAt | date: 'medium' }}</small>
-      </p>
-      <p>
-      </p>
-      <p>
-        <strong>Description:</strong>
-        <br/> {{ fire.desc }}
-      </p>
-      <p>
-        <a class="button large" href="{{ fire.website }}" target="new">Website</a>
-        <a ng-if="firebaseUserUid == fire.uid" class="button secondary" ui-sref="edit({ fireId:fire.$id })">edit</a>
-        <a ng-if="firebaseUserUid == fire.uid" class="button alert" ng-click="deleteFire()">delete</a>
-      </p>
+    <div class="col-sm-12 col-md-7">
+      <a href="{{ fire.website }}" target="new"><img ng-src="{{ fire.image }}" class="img-fluid" /></a>
+    </div>
+    <div class="col-sm-12 col-md-5" style="margin-top:10px;">
+      <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">{{ fire.name }}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Category: <a ui-sref="category({ categoryId: fire.category })">{{ fire.category }}</a> <br/> by {{ fire.createdBy }} <br/> {{ fire.createdAt | date: 'medium' }}</h6>
+          <p class="card-text">{{ fire.desc }}</p>
+          <hr class="my-4">
+          <a href="{{ fire.website }}" class="btn btn-primary">Website</a>
+          <a ng-if="firebaseUserUid == fire.uid" class="btn btn-secondary" ui-sref="edit({ fireId:fire.$id })">edit</a>
+          <a ng-if="firebaseUserUid == fire.uid" class="btn btn-danger" ng-click="deleteFire()">delete</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-

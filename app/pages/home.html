@@ -10,29 +10,28 @@
       </div>
     </div>
   </div>
-  <div class="row justify-content-md-center">
-    <div class="col col-md-auto" ng-show="list">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 offset-md-2" ng-show="list">
       <label class="form-control-label" for="categories">Sort by categories...</label>
-        <input class="form-control" id="categories" name="categories" list="categories" type="search" placeholder="Start typing a category name or use dropdown" name="search" ng-model="filterQuery" aria-describeby="total" />
-        <datalist id="categories">
-          <option ng-repeat="(key, value) in categories" value="{{ key }}"> {{ value }} </option>
-        </datalist>
-        <p class="help-text" id="total">You're sorting a total of {{ list.length }} items</p>
+      <select class="form-control" id="categories" name="categories" list="categories" type="search" placeholder="Start typing a category name or use dropdown" name="search" ng-model="filterQuery" aria-describeby="total">
+        <option ng-repeat="(key, value) in categories" value="{{ key }}"> {{ value }} </option>
+      </select>
     </div>
   </div>
+  <hr>
   <div class="row equal">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' ">
       <div class="card">
-        <div class="card-header">
-          {{ fire.name }}
-        </div>
         <a ui-sref="fire({ fireId: fire.$id })">
-          <img class="card-img-top img-fluid" ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}">
-          <div class="card-block">
-            <p class="card-text">{{ fire.desc | limitTo: 20 }}</p>
+          <div class="card-header text-primary">
+            {{ fire.name }}
           </div>
+          <img class="card-img-top img-fluid" ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}" style="max-height: ">
         </a>
       </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+$('#categories').editableSelect();
+</script>
