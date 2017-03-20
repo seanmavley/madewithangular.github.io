@@ -1,12 +1,21 @@
-<div class="row" ng-controller="MenuController">
-  <div class="small-12 medium-10 medium-centered columns">
-    <div class="menu-centered">
-      <a ui-sref="home" class="button hollow">Made with Firebase <small>beta</small></a>
-      <a ui-sref="new" class="button success small" title="Add Code"><i class="step fi-plus size-18"></i></a>
-      <a ui-sref="about" class="button hollow">about</a>
-      <span ng-show="loggedIn">
-                <a ng-click="logout()" class="button small" title="Logout"><i class="step fi-power size-18"></i></a>
-            </span>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" ng-controller="MenuController">
+  <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" ui-sref="home">MadewithFirebase</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+        <li class="nav-item">
+          <a class="nav-link" ui-sref="new">Add new</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" ui-sref="about">About</a>
+        </li>
+        <li class="nav-item" ng-show="loggedIn">
+          <a class="nav-link" ng-click="logout()">Logout</a>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+</nav>

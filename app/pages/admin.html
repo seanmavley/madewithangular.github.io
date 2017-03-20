@@ -1,17 +1,6 @@
-<div class="small-12 columns medium-8 medium-centered">
-  <div class="row">
-    <div class="small-12 columns">
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- Homepage (madewithfirebase.com) -->
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
-      <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="small-12 columns">
+<div class="container">
+  <div class="row justify-content-lg-center" style="margin-top:20px;">
+    <div class="col-12 col-lg-auto">
       <div ng-show="!list.length">
         <div class="loader">
           <span>{</span><span>}</span>
@@ -20,10 +9,6 @@
       <h3>Sites you've added!</h3>
       <span ng-show="!list.length">You've not added any site.</span>
       <span ng-repeat="item in list" ng-show="list"><a ui-sref="fire({ fireId: item.$id })" >{{ item.name }}</a> (<a ui-sref="edit({ fireId:item.$id })">edit</a>) &bull; </span>
-    </div>
-    <hr>
-    <div class="small-12 columns" ng-show="admin">
-      <a class="button" ng-click="addCategories()">Initialize Languages</a>
     </div>
   </div>
 </div>

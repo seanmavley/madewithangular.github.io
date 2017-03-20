@@ -527,8 +527,6 @@ angular.module('madeWithFirebase')
   }
 ])
 
-$(document).foundation();
-
 toastr.options = {
   "closeButton": false,
   "debug": false,
