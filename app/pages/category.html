@@ -1,16 +1,6 @@
-<div class="small-12 columns">
+<div class="container">
   <div class="row">
-    <div class="small-12 medium-8 medium-centered columns">
-      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!-- Homepage (madewithfirebase.com) -->
-      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="6234955972" data-ad-format="auto"></ins>
-      <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-12 medium-6 medium-centered columns">
+    <div class="col-sm-12 col-md-6 offset-md-3">
       <div style="margin-top:20px;">
         <center>
           <div class="loader" ng-show="!list">
@@ -19,21 +9,17 @@
         </center>
       </div>
     </div>
-    <div class="small-12 columns">
-      <div class="row">
-        <div class="small-12 medium-4 large-3 columns end" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' " style="height:147px; margin-bottom:10px;">
-          <div class="cards show-for-small-only">
-            <a ui-sref="fire({ fireId: fire.$id })">{{ fire.name }}</a> | {{ fire.desc }}
+  </div>
+  <hr>
+  <div class="row equal">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-repeat="fire in list | filter: filterQuery | orderBy: '-createdAt' ">
+      <div class="card">
+        <a ui-sref="fire({ fireId: fire.$id })">
+          <div class="card-header text-primary">
+            {{ fire.name }}
           </div>
-          <div class="card">
-            <div class="image show-for-medium">
-              <a ui-sref="fire({ fireId: fire.$id })">
-                <img ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}" />
-                <span class="title">{{ fire.name }}</span>
-              </a>
-            </div>
-          </div>
-        </div>
+          <img class="card-img-top img-fluid" ng-src="{{ fire.thumbnail }}" alt="{{ fire.name }}">
+        </a>
       </div>
     </div>
   </div>
